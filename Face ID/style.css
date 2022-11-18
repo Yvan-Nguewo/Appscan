@@ -1,0 +1,191 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+body{
+    background:url(./ok.jpg);
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh; 
+    overflow-x: hidden;
+}
+
+p{
+    font-weight: 300;
+    color: white;
+    font-size: 1em;
+}
+
+header{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    padding: 20px 10px;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.logo{
+    color:cyan;
+    font-weight: bold;
+    font-size: 2em;
+    text-decoration: none;
+}
+.logo span{
+    color: orange;
+}
+
+.navbar{
+    display: flex;
+    position: relative;
+    margin-left: 100px;
+}
+.navbar li{
+    list-style: none;
+}
+.navbar a{
+    color: cyan;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 700;
+}
+
+header .navbar li a:hover{
+    color: orange;
+    border-bottom: 2px solid orange;
+}
+
+section{
+    padding: 100px;
+}
+.row{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.row .col50{
+    position: relative;
+    width: 48%;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.row .col50 h2{
+    margin-bottom: 20px;
+}
+
+.titre-texte{
+    color: #000;
+    font-size: 2em;
+    font-weight: 300px;
+    text-transform: capitalize;
+}
+
+.titre-text{
+    color: #000;
+    font-size: 2em;
+    font-weight: 300px;
+    text-transform: capitalize;
+}
+
+.titre-texte span{
+    color: cyan;
+    font-size: 1.5em;
+    font-weight: 700px;
+}
+
+.titre-text span{
+    color: white;
+    font-size: 1.5em;
+    font-weight: 700px;
+}
+
+.row .col50 img{
+    height: 450px;
+    width: 600px;
+    position: relative;
+}
+
+.Home .row .col50 h1{
+ 
+font-size: 70px;
+line-height: 120px;
+margin-left: -10px;
+color: transparent;
+-webkit-text-stroke: 1px #fff;
+background: url(images/back.png);
+-webkit-background-clip: text;
+background-position: 0 0;
+animation: back 20s linear infinite;
+}
+@keyframes back{
+    100%{
+        background-position: 2000px 0;  
+    }
+}
+
+
+.btn1{
+    font-size: 1em;
+    background:orange ;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.5s;
+    margin-left: 10px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    animation: button 4s linear infinite;
+}
+
+@keyframes button{
+    0%,100%
+    {
+        background-color: darkgoldenrod;
+        color: #000;
+    }
+    50%
+    {
+        background-color: orange;
+        color: #fff;
+    }
+    100%
+    {
+        background-color: orange;
+    }
+}
+
+.video {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas{
+    position: relative;
+}
+.btn a:hover{
+    font-size: 2em;
+    color: rgb(0, 0, 0);
+    background:rgba(255, 128, 0, 0.449) ; 
+}

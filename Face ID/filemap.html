@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo="/>
+    <script defer src ="scriptC.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo"><span>Face</span> Api</a>
+        <div class="menuToggle" onclick="toggleMenu();"></div>
+        <ul class="navbar">
+            <li><a href="index.html" onclick="toggleMenu();">Home</a></li>
+            <li><a href="Recognition.html" onclick="toggleMenu();">Recognition</a></li>
+            <li><a href="#Verified" onclick="toggleMenu();">Verified</a></li>
+            <li><a href="Filemap.html" onclick="toggleMenu();">Filemap</a></li>
+        </ul>
+    </header>
+
+    <section class="Verified" id="Verified">
+    <input type="file" id="fileUpload"/>
+    <div id="uploadedImage"></div>
+    </section> 
+</body>
+</html>
