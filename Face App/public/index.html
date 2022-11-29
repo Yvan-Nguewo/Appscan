@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    canvas {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="logo"><span>Face</span> App</a>
+    <div class="menuToggle" onclick="toggleMenu();"></div>
+    <ul class="navbar">
+        <li><a href="#Home" onclick="toggleMenu();">Home</a></li>
+        <li><a href="Recognition.html" onclick="toggleMenu();">Recognition</a></li>
+        <li><a href="verified.html" onclick="toggleMenu();">Detection</a></li>
+    </ul>
+</header>
+<section class="Home" id="Home">
+    <div class="row">
+        <div class="col50">
+            <h2 class="titre-text"><span>Face</span></h2> <h2 class="titre-texte"><span> Recognition </span></h2>
+            
+            <p>
+              Face APP est une application de detection et reconnaissance faciale, basé sur des traits de visage particulier, il detecte un visage humain et renvoie leur expression.
+              De plus , elle permet de detecter les visages sur les photos.
+            </p>
+            <a href="Recognition.html" class="btn1">Get started</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

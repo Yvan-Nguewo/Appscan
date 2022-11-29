@@ -1,0 +1,19 @@
+{
+  "name": "face-app",
+  "version": "1.0.0",
+  "description": "Face recognition from webcam using face-api.ja",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js -L -e js,html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jason Kamsu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
