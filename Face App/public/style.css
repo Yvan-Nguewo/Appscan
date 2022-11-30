@@ -131,6 +131,22 @@ section{
     transition: 0.5s;
     margin-left: 10px;
     border-radius: 20px;
+    animation: button 7s linear infinite;
+}
+
+@keyframes button{
+    0%,100%{
+        background-color: aqua;
+        color: #000;
+    }
+    50%{
+        background-color: rgb(196, 129, 4);
+        color:#ffff;
+    }
+    100%{
+        background-color: gold;
+        color:#111;
+    }
 }
 
 canvas{
