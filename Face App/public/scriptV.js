@@ -32,85 +32,9 @@ video.addEventListener('play', () => {
     /*if (detections.length)
     saveCanvas(canvas);*/
 
-    const getFaceAndDescriptor = (canvas, type = 'base64') => {
-      if (!canvas) return Promise.reject(new Error('Foto no válida'));
     
-      return new Promise(async (resolve, reject) => {
-        try {
-          const photo = {
-            thumbnail: {
-              b64: null,
-              blob: null,
-            },
-            faces: [],
-          };
-          resizeToMax(canvas); //<- reduce canvas height and width if it necesary
-          const result = await faceapi.detectAllFaces(canvas, faceDetectionOptionsFiles);
-          if (!result) return reject(new Error('Cara no encontrada'));
-          if (result.length > 1) {
-            return reject(new Error(`Foto no válida, se encontraron ${result.length} rostros`));
-          }
-          if (result.length === 0) {
-            return reject(new Error('La imagen no contiene un rostro o se encuentra muy lejos'));
-          }
-    
-          let { box } = result[0];
-          let region = new faceapi.Rect(box._x, box._y, box._width, box._height);
-          const boxFace = box;
-          let face = await faceapi.extractFaces(canvas, [region]);
-    
-          const landmarks = await faceapi.detectFaceLandmarksTiny(face[0]);
-          box = landmarks.align();
-          region = new faceapi.Rect(box._x, box._y, box._width, box._height);
-          face = await faceapi.extractFaces(face[0], [region]);
-          canvas2gray(face[0]); // Convierte el canvas a escala de grises
-          const blobFace = await canvas2blob(face[0]);
-          let descriptor = await faceapi.computeFaceDescriptor(face[0]); // get Float32Array
-          // Encode descriptor to send a server
-          descriptor =  btoa(String.fromCharCode.apply(null, new Uint8Array(descriptor.buffer)))
-          // Push blob of face and descriptor
-          photo.faces.push({
-            blob: blobFace,
-            descriptor,
-          });
-    
-          box = boxFace;
-          if (canvas.height > 240 && canvas.width > 320) {
-            let x;
-            let y;
-            let h = canvas.height * 0.9;
-            let w = box.width;
-            const centerX = box.width / 2;
-            const centerY = box.height / 2;
-            x = box.x - centerX;
-            if (x < 0) x = box.x;
-            else w = box.width * 2;
-            y = box.y - centerY;
-            if (y < 0) y = 0;
-            if (h - y < canvas.height) h -= y;
-            else h = box.height;
-            // Get thumbnail
-            region = new faceapi.Rect(x, y, w, h); // region center imagen
-          } else {
-            region = new faceapi.Rect(box.x, box.y, box.width, box.height);
-          }
-    
-          const thumbnail = await faceapi.extractFaces(canvas, [region]);
-          const blobThumbnail = await canvas2blob(thumbnail[0]);
-          photo.thumbnail = {
-            blob: blobThumbnail,
-          };
-          if (type === 'base64') photo.thumbnail.b64 = thumbnail[0].toDataURL('image/jpeg');
-    
-          resolve(photo);
-        } catch (error) {
-          console.error(error);
-          reject(error);
-        }
-      });
-    };
-    /*const age = resizedDetections[0].age;
-    const interpolatedAge = interpolatedAgePredictions(age);
+    const age = resizedDetections[0].age;
+    const interpolatedAge = interpolateAgePredictions(age);
     const bottomRight = {
       x: resizedDetections[0].detection.box.bottomRight.x -50,
       y: resizedDetections[0].detection.box.bottomRight.y,
@@ -120,20 +44,20 @@ video.addEventListener('play', () => {
       [`${faceapi.utils. round(interpolatedAge, 0)} years`],
       bottomRight
     ).draw(canvas);
-    */
+    
 
   
   }, 100)
 })
-/*
-function interpolatedAgePredictions(age){
-  predictedAges = [age].concat(predictedAges).slice(0 ,30)
+
+function interpolateAgePredictions(age){
+  predictedAges = [age].concat(predictedAges).slice(0 ,30);
   const avgPredictedAge = predictedAges.reduce((total, a) => total + a) / predictedAges.length;
   return avgPredictedAge;
 }
 
 
-
+/*
 function saveCanvas(canvas) {
   const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  
   window.location.href=image;
@@ -141,6 +65,83 @@ function saveCanvas(canvas) {
 */
 
 
+const getFaceAndDescriptor = (canvas, type = 'base64') => {
+  if (!canvas) return Promise.reject(new Error('Foto no válida'));
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const photo = {
+        thumbnail: {
+          b64: null,
+          blob: null,
+        },
+        faces: [],
+      };
+      resizeToMax(canvas); //<- reduce canvas height and width if it necesary
+      const result = await faceapi.detectAllFaces(canvas, faceDetectionOptionsFiles);
+      if (!result) return reject(new Error('Cara no encontrada'));
+      if (result.length > 1) {
+        return reject(new Error(`Foto no válida, se encontraron ${result.length} rostros`));
+      }
+      if (result.length === 0) {
+        return reject(new Error('La imagen no contiene un rostro o se encuentra muy lejos'));
+      }
+
+      let { box } = result[0];
+      let region = new faceapi.Rect(box._x, box._y, box._width, box._height);
+      const boxFace = box;
+      let face = await faceapi.extractFaces(canvas, [region]);
+
+      const landmarks = await faceapi.detectFaceLandmarksTiny(face[0]);
+      box = landmarks.align();
+      region = new faceapi.Rect(box._x, box._y, box._width, box._height);
+      face = await faceapi.extractFaces(face[0], [region]);
+      canvas2gray(face[0]); // Convierte el canvas a escala de grises
+      const blobFace = await canvas2blob(face[0]);
+      let descriptor = await faceapi.computeFaceDescriptor(face[0]); // get Float32Array
+      // Encode descriptor to send a server
+      descriptor =  btoa(String.fromCharCode.apply(null, new Uint8Array(descriptor.buffer)))
+      // Push blob of face and descriptor
+      photo.faces.push({
+        blob: blobFace,
+        descriptor,
+      });
+
+      box = boxFace;
+      if (canvas.height > 240 && canvas.width > 320) {
+        let x;
+        let y;
+        let h = canvas.height * 0.9;
+        let w = box.width;
+        const centerX = box.width / 2;
+        const centerY = box.height / 2;
+        x = box.x - centerX;
+        if (x < 0) x = box.x;
+        else w = box.width * 2;
+        y = box.y - centerY;
+        if (y < 0) y = 0;
+        if (h - y < canvas.height) h -= y;
+        else h = box.height;
+        // Get thumbnail
+        region = new faceapi.Rect(x, y, w, h); // region center imagen
+      } else {
+        region = new faceapi.Rect(box.x, box.y, box.width, box.height);
+      }
+
+      const thumbnail = await faceapi.extractFaces(canvas, [region]);
+      const blobThumbnail = await canvas2blob(thumbnail[0]);
+      photo.thumbnail = {
+        blob: blobThumbnail,
+      };
+      if (type === 'base64') photo.thumbnail.b64 = thumbnail[0].toDataURL('image/jpeg');
+
+      resolve(photo);
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};
 
 function canvas2blob(can, type = 'image/jpeg', quality = 0.97) {
   return Promise.try(() => {
